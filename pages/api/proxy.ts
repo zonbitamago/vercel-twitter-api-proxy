@@ -15,6 +15,7 @@ export default async function handler(
   }
 
   const body = req.body;
+  console.log(body);
 
   const client = new Twitter({
     bearer_token: body.bearer_token,

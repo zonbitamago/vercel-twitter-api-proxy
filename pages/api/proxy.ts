@@ -1,12 +1,15 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import Status from "http-status-codes";
 import Twitter from "twitter-v2";
+import Cors from "cors";
+import initMiddleware from "../../lib/init-middleware";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await cors(req, res);
+
   if (req.method !== "POST") {
     return res.status(Status.BAD_REQUEST).send("");
   }
@@ -24,3 +27,12 @@ export default async function handler(
 
   res.status(200).json({ data: data });
 }
+
+// Initialize the cors middleware
+const cors = initMiddleware(
+  // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
+  Cors({
+    // Only allow requests with GET, POST and OPTIONS
+    methods: ["GET", "POST", "OPTIONS"],
+  })
+);

@@ -21,12 +21,12 @@ export default async function handler(
     bearer_token: body.bearer_token,
   });
 
-  const { data } = await client.get(`lists/${body.id}/tweets`, {
+  const result = await client.get(`lists/${body.id}/tweets`, {
     expansions: "author_id",
     "user.fields": "created_at,profile_image_url,name",
   });
 
-  res.status(200).json({ data: data });
+  res.status(200).json({ result: result });
 }
 
 // Initialize the cors middleware

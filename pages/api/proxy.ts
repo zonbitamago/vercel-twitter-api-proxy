@@ -24,6 +24,8 @@ export default async function handler(
   const result = await client.get(`lists/${body.id}/tweets`, {
     expansions: "author_id",
     "user.fields": "created_at,profile_image_url,name",
+    "tweet.fields":
+      "attachments,author_id,conversation_id,created_at,id,in_reply_to_user_id,referenced_tweets,text,withheld",
   });
 
   res.status(200).json({ result: result });
